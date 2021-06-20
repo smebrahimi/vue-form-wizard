@@ -1,6 +1,9 @@
 @import "mixins/wizard-size";
 @import "variables";
 
+*:focus {
+  outline: none;
+}
 .vue-form-wizard {
   padding-bottom: 20px;
   .is_error {
@@ -14,14 +17,18 @@
   @include wizard-size('md', 70px, 24px);
   @include wizard-size('lg', 90px, 28px);
 
+  .container-wizard-icon-circle {
+    padding: 0 16px;
+    background-color: white;
+  }
+
   .wizard-icon-circle {
     font-size: 18px;
-    border: 3px solid $gray-input-bg;
     border-radius: 50%;
     font-weight: $font-weight-bold;
     width: 70px;
     height: 70px;
-    background-color: $white-color;
+    background-color: #CFCDBD;
     position: relative;
     display: flex;
     justify-content: center;
@@ -42,7 +49,6 @@
       justify-content: center;
       flex: 1;
       border-radius: 50%;
-      margin: -3px;
       &.square_shape {
         border-radius: 0;
       }
@@ -55,7 +61,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      &.ti-check {
+        transform: rotate(10deg);
+        font-size: 30px;
+      }
     }
+  }
+
+  .stepTitle {
+    font-size: 20px;
+    line-height: 24px;
   }
 
   .wizard-tab-content {
@@ -88,7 +103,7 @@
   .wizard-navigation {
     .wizard-progress-with-circle {
       position: relative;
-      top: 40px;
+      top: -40px;
       height: 4px;
 
       .wizard-progress-bar {

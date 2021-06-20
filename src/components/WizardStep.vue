@@ -1,37 +1,38 @@
 <template>
   <li :class="{active:tab.active}">
     <a href="javascript:void(0)" :class="{disabled: !tab.checked}">
-      <div class="wizard-icon-circle md"
-           role="tab"
-           :tabindex="tab.checked ? 0 : ''"
-           :id="`step-${tab.tabId}`"
-           :aria-controls="tab.tabId"
-           :aria-disabled="tab.active"
-           :aria-selected="tab.active"
-           :class="{checked: tab.checked,square_shape:isStepSquare, tab_shape:isTabShape}"
-           :style="[tab.checked ? stepCheckedStyle : {}, tab.validationError ? errorStyle : {}]">
+      <div class="container-wizard-icon-circle">
+        <div class="wizard-icon-circle md"
+            role="tab"
+            :tabindex="tab.checked ? 0 : ''"
+            :id="`step-${tab.tabId}`"
+            :aria-controls="tab.tabId"
+            :aria-disabled="tab.active"
+            :aria-selected="tab.active"
+            :class="{checked: tab.checked,square_shape:isStepSquare, tab_shape:isTabShape}"
+            :style="tab.checked && !tab.active ? stepCheckedStyle : {}">
 
-        <transition :name="transition" mode="out-in">
-
-            <div v-if="tab.active" class="wizard-icon-container"
-                 :class="{square_shape:isStepSquare, tab_shape:isTabShape}"
-                 :style="[tab.active ? iconActiveStyle: {}, tab.validationError ? errorStyle : {}]">
-              <slot name="active-step">
-                <i v-if="tab.icon" :class="tab.icon" class="wizard-icon"></i>
-                <i v-else class="wizard-icon">{{index + 1}}</i>
+          <transition :name="transition" mode="out-in">
+              <div v-if="tab.active" class="wizard-icon-container"
+                  :class="{square_shape:isStepSquare, tab_shape:isTabShape}"
+                  :style="tab.active ? iconActiveStyle: {}">
+                <slot name="active-step">
+                  <span v-if="tab.icon" :class="tab.icon" class="wizard-icon"></span>
+                  <span v-else class="wizard-icon" :style="[tab.active ? textActiveStyle : {}]">{{index + 1}}</span>
+                </slot>
+              </div>
+              <slot v-if="!tab.active">
+                <span v-if="tab.checked" :class="tab.icon" class="wizard-icon ti-check"></span>
+                <span v-if="!tab.active && !tab.icon" :class="tab.icon" class="wizard-icon">{{index + 1}}</span>
               </slot>
-            </div>
-            <slot v-if="!tab.active">
-              <i v-if="!tab.active && tab.icon" :class="tab.icon" class="wizard-icon"></i>
-              <i v-if="!tab.active && !tab.icon" class="wizard-icon">{{index + 1}}</i>
-            </slot>
-        </transition>
+          </transition>
 
+        </div>
       </div>
       <slot name="title">
         <span class="stepTitle"
               :class="{active:tab.active, has_error:tab.validationError}"
-              :style="tab.active ? stepTitleStyle : {}">
+              :style="tab.active || tab.checked ? textActiveStyle : {}">
               {{tab.title}}
         </span>
       </slot>
@@ -60,24 +61,18 @@
     computed: {
       iconActiveStyle () {
         return {
-          backgroundColor: this.tab.color
+          backgroundColor: '#D6E13A' // active color
+        }
+      },
+      textActiveStyle () {
+        return {
+          color: '#265C1F'
         }
       },
       stepCheckedStyle () {
         return {
-          borderColor: this.tab.color
-        }
-      },
-      errorStyle () {
-        return {
-          borderColor: this.tab.errorColor,
-          backgroundColor: this.tab.errorColor
-        }
-      },
-      stepTitleStyle () {
-        let isError = this.tab.validationError
-        return {
-          color: isError ? this.tab.errorColor : this.tab.color
+          color: 'white',
+          backgroundColor: '#265C1F' // success color
         }
       },
       isStepSquare () {

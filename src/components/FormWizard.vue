@@ -1,16 +1,9 @@
 <template>
   <div :id="id ? id : ''" class="vue-form-wizard" :class="[stepSize, {vertical: isVertical}]" @keyup.right="focusNextTab"
        @keyup.left="focusPrevTab">
-    <div class="wizard-header" v-if="$slots['title']">
-      <slot name="title">
-        <h4 class="wizard-title">{{title}}</h4>
-        <p class="category">{{subtitle}}</p>
-      </slot>
-    </div>
     <div class="wizard-navigation">
-      <div class="wizard-progress-with-circle" v-if="!isVertical">
-        <div class="wizard-progress-bar"
-             :style="progressBarStyle"></div>
+      <div class="wizard-progress-with-circle" v-if="!isVertical" :style="{backgroundColor: this.progressBarColor, width: `67.66%`, margin: 'auto'}">
+        <div class="wizard-progress-bar" :style="[{backgroundColor: this.successColor}, progressBarStyle]"></div>
       </div>
       <ul class="wizard-nav wizard-nav-pills" role="tablist" :class="stepsClasses">
         <slot name="step" v-for="(tab, index) in tabs"
@@ -88,14 +81,6 @@
         type: String,
         default: 'fw_' + (new Date()).valueOf()
       },
-      title: {
-        type: String,
-        default: 'Awesome Wizard'
-      },
-      subtitle: {
-        type: String,
-        default: 'Split a complicated flow in multiple steps'
-      },
       nextButtonText: {
         type: String,
         default: 'Next'
@@ -118,11 +103,23 @@
        */
       color: {
         type: String,
-        default: '#e74c3c'
+        default: '#CFCDBD'
+      },
+      activeColor: {
+        type: String,
+        default: '#D6E13A'
+      },
+      successColor: {
+        type: String,
+        default: '#265C1F'
       },
       errorColor: {
         type: String,
         default: '#8b0000'
+      },
+      progressBarColor: {
+        type: String,
+        default: '#CFCDBD'
       },
       shape: {
         type: String,
@@ -205,9 +202,8 @@
       },
       progressBarStyle () {
         return {
-          backgroundColor: this.color,
-          width: `${this.progress}%`,
-          color: this.color
+          backgroundColor: this.successColor,
+          width: `${this.activeTabIndex * 34}%`
         }
       },
       fillButtonStyle () {
@@ -311,6 +307,8 @@
         let cb = () => {
           if (this.activeTabIndex > 0) {
             this.setValidationError(null)
+            let activeTab = this.tabs[this.activeTabIndex]
+            activeTab.checked = false
             this.changeTab(this.activeTabIndex, this.activeTabIndex - 1)
           }
         }

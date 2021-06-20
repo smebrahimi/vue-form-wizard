@@ -37,8 +37,8 @@
     > li.active > a:hover,
     > li.active > a:focus {
         background-color: transparent;
+        outline: none;
         @include transition-font-size(.2s, linear);
-
 
         .wizard-icon{
             color: $white-color;
