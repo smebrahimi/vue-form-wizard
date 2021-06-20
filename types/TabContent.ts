@@ -15,6 +15,20 @@ export declare class Tab extends Vue {
   icon: string
 
   /**
+   * Step color when the success step.
+   * 
+   * Default value: '#8b0000'
+   */
+  successColor: string
+
+  /**
+    * Step color when the active step.
+    * 
+    * Default value: '#8b0000'
+    */
+  activeColor: string
+
+  /**
    * Function to execute before changing tabs. If the return result is false, the tab switch is restricted.
    */
   beforeChange: () => boolean | Promise<boolean>

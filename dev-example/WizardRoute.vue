@@ -7,7 +7,11 @@
     <form-wizard @on-complete="onComplete"
                  @on-change="handleChange"
                  :start-index.sync="activeIndex"
-                 color="#e74c3c">
+                 icon="ti-check"
+                 color="#CFCDBD"
+                 active-color="#D6E13A"
+                 success-color="#265C1F"
+                 style="width: 60%; margin: auto;">
        <tab-content v-for="tab in tabs" :title="tab" :key="tab">{{tab}}</tab-content>
         <transition name="fade" mode="out-in">
           <router-view></router-view>
@@ -25,7 +29,7 @@
         loadingWizard: false,
         error: null,
         count: 0,
-        tabs: ['test', 'test2', 'test3'],
+        tabs: ['Abo', 'Extra', 'Address', 'Deliver'],
         activeIndex: 0
       }
     },

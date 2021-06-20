@@ -76,6 +76,20 @@ export declare class Wizard extends Vue {
   errorColor: string
 
   /**
+   * Step color when the success step.
+   * 
+   * Default value: '#8b0000'
+   */
+  successColor: string
+
+  /**
+   * Step color when the active step.
+   * 
+   * Default value: '#8b0000'
+   */
+   activeColor: string
+
+  /**
    * Shape of steps.
    * 
    * Default value: 'circle'
