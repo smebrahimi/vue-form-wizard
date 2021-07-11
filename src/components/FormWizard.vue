@@ -21,8 +21,8 @@
           </wizard-step>
         </slot>
       </ul>
-      <div class="wizard-tab-content">
-        <slot v-bind="slotProps">{{slotProps}}---
+      <div class="wizard-tab-content">****
+        <slot name="content" v-bind="slotProps">
         </slot>
       </div>
     </div>
