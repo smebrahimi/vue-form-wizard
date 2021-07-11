@@ -62,7 +62,6 @@
       align-items: center;
       justify-content: center;
       &.ti-check {
-        transform: rotate(10deg);
         font-size: 30px;
         @media screen and (max-width: 480px) {
           font-size: 14px;
