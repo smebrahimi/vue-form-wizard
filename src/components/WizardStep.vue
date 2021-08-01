@@ -22,7 +22,8 @@
                 </slot>
               </div>
               <slot v-if="!tab.active">
-                <span v-if="tab.checked" :class="tab.icon" class="wizard-icon ti-check icomoon-check"></span>
+                <span v-if="tab.checked && !tab.validationError" :class="tab.icon" class="wizard-icon ti-check icomoon-check"></span>
+                <span v-if="tab.checked && tab.validationError" :class="tab.icon" class="wizard-icon">{{index + 1}}</span>
                 <span v-if="!tab.active && !tab.icon" :class="tab.icon" class="wizard-icon">{{index + 1}}</span>
               </slot>
           </transition>
