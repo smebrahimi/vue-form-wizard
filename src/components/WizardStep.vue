@@ -32,7 +32,7 @@
       </div>
       <slot name="title">
         <span class="stepTitle"
-              :class="{active:tab.active, has_error:tab.validationError}"
+              :class="{active:tab.active}"
               :style="tab.active || tab.checked ? textActiveStyle : {}">
               {{tab.title}}
         </span>
